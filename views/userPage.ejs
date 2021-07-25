@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%=user.email%></h1>
+    <div class="userContainer">
+        <table class="table table-hover" style="margin-top: 10px">
+            <thead>
+            <tr>
+                <th id="4" role="button" scope="col">email</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            <% if(users){ %>
+                <% users.forEach((item)=>{ %>
+                <tr id="<%=item._id%>">
+                    <td value="<%=item.email%>" onclick="startChat(this)"><%= item.email %> </td>
+                </tr>
+                <% }) %>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="live-chat">
+
+        <header class="clearfix">
+
+            <a href="#" class="chat-close">x</a>
+
+            <h4 id="userName"></h4>
+
+            <span class="chat-message-counter">3</span>
+
+        </header>
+
+        <div class="chat">
+
+            <div class="chat-history" id="chat-history">
+
+<!--                <div class="chat-message clearfix">-->
+
+<!--&lt;!&ndash;                    <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">&ndash;&gt;-->
+
+<!--                    <div class="chat-message-content clearfix">-->
+
+<!--                        <span class="chat-time">13:35</span>-->
+
+<!--                        <h5>John Doe</h5>-->
+
+<!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, explicabo quasi ratione odio dolorum harum.</p>-->
+
+<!--                    </div> &lt;!&ndash; end chat-message-content &ndash;&gt;-->
+
+<!--                </div> &lt;!&ndash; end chat-message &ndash;&gt;-->
+
+<!--                <hr>-->
+
+<!--                <div class="chat-message clearfix">-->
+
+<!--                    <img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">-->
+
+<!--                    <div class="chat-message-content clearfix">-->
+
+<!--                        <span class="chat-time">13:37</span>-->
+
+<!--                        <h5>Marco Biedermann</h5>-->
+
+<!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nulla accusamus magni vel debitis numquam qui tempora rem voluptatem delectus!</p>-->
+
+<!--                    </div> &lt;!&ndash; end chat-message-content &ndash;&gt;-->
+
+<!--                </div> &lt;!&ndash; end chat-message &ndash;&gt;-->
+
+<!--                <hr>-->
+
+<!--                <div class="chat-message clearfix">-->
+
+<!--                    <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">-->
+
+<!--                    <div class="chat-message-content clearfix">-->
+
+<!--                        <span class="chat-time">13:38</span>-->
+
+<!--                        <h5>John Doe</h5>-->
+
+<!--                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>-->
+
+<!--                    </div> &lt;!&ndash; end chat-message-content &ndash;&gt;-->
+
+<!--                </div> &lt;!&ndash; end chat-message &ndash;&gt;-->
+
+<!--                <hr>-->
+
+            </div> <!-- end chat-history -->
+
+
+<!--            <form action="/sendMessage" method="post">-->
+
+                <fieldset>
+
+                    <input type="text" id = 'msg' placeholder="send message" autofocus>
+                    <input type="hidden" >
+                    <button onclick="sendMessage()">Send</button>
+
+                </fieldset>
+
+<!--            </form>-->
+
+        </div> <!-- end chat -->
+
+    </div> <!-- end live-chat -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</body>
+</html>
