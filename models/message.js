@@ -2,23 +2,21 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const message = new Schema({
-    senderEmail: {
+    group: {
         type: String,
-        required: true,
-        trim: true
+        ref:'Group',
     },
-    receiverEmail: {
+    sender: {
         type: String,
-        required: true,
-        trim: true
+        ref:'User',
     },
-    message:{
+    users:[{
         type:String,
-        required:true,
-    },
-    data:{
-        type: Date,
-        default: Date.now
+        ref:'User',
+    }],
+    message:{
+        type: String,
+        required: true
     }
 })
 

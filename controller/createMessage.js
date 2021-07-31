@@ -1,23 +1,53 @@
 const Message = require('../models/message')
 const User = require('../models/User')
+const Group = require('../models/group')
+const GroupUser = require('../models/groupUser')
+const { Server } = require("socket.io");
+
+
 class CreateMessage{
+    constructor() {
+        this.server = new Server()
+    }
    static crete =  async (req,res,next)=>{
        try {
-           const {email ,data} = req.body;
-           const receiver = await User.findOne({email});
+           const {receiverId ,message,groupId} = req.body;
+           const receiver = await User.findById(receiverId);
            if(!receiver) {
-               throw new Error('User not found');
+               throw new Error('receiver not found');
            }
-           const message = new Message({
-               senderEmail:req.user.email,
-               receiverEmail:receiver.email,
-               message:data
+           let group;
+           if(!groupId) {
+               group = new Group({})
+               await group.save()
+           }else {
+               group = await Group.findById(groupId);
+           }
+           const messageModel = new Message({
+               sender:req.user._id,
+               message,
+               users:[receiver._id,req.user._id],
+               group
            })
-           await message.save();
-           return res.status(200).json({message});
+           await messageModel.save();
+           const groupUserModel = new GroupUser({
+               group,
+               user:req.user._id,
+           });
+           await groupUserModel.save();
+           const room = group.id;
+           await this.broadcast(null, messageModel, room);
+           return res.status(200).json({messageModel});
        }catch (e){
            next(e)
        }
+    }
+    async broadcast(socket, eventName, message, room) {
+        if (socket) {
+            socket.broadcast.to(room).emit(eventName, message);
+        } else {
+            this.server.to(room).emit(eventName, message);
+        }
     }
     static getMessages = async (req,res,next)=>{
        try {

@@ -48,6 +48,12 @@ app.use(bodyParser.json())
 app.use(express.static("./public"))
 
 app.use('/', routes)
+io.on('connection', function(socket) {
+    console.log('a user connected');
+    socket.on('chat message', function(msg){
+        console.log('message: ' + msg);
+    });
+});
 
 server.listen(PORT,()=>{
     console.log(`Server has been started on port ${PORT}`)
